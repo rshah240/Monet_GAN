@@ -4,8 +4,8 @@ import torch.optim as optim
 from torchvision import datasets
 from torch.utils.data import DataLoader
 from torchvision import transforms
-from .utils.model import Generator,Discriminator
-from .utils import loss
+from utils.model import Generator,Discriminator
+from utils import loss
 import os
 from hyperparameters import lr,batch_size,beta1,beta2
 
@@ -45,8 +45,6 @@ def train(n_epochs):
         G_YtoX.cuda()
         D_X.cuda()
         D_Y.cuda()
-
-    
 
     g_params = list(G_XtoY.parameters()) + list(G_YtoX.parameters())
 
@@ -128,6 +126,11 @@ def train(n_epochs):
             losses.append((d_x_loss.item(), d_y_loss.item(), g_total_loss.item()))
             print('Epoch [{:5d}/{:5d}] | d_X_loss: {:6.4f} | d_Y_loss: {:6.4f} | g_total_loss: {:6.4f}'.format(
                     epoch, n_epochs, d_x_loss.item(), d_y_loss.item(), g_total_loss.item()))
+            
+            
+            
+if __name__ == "__main__":
+    train(4000)
 
 
 

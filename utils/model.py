@@ -75,7 +75,7 @@ class Discriminator(nn.Module):
         self.conv3 = conv(in_channels=conv_dim*2, out_channels=conv_dim*4)
         self.conv4 = conv(in_channels=conv_dim*4, out_channels=conv_dim*8)
 
-        self.conv5 = conv(in_channels=conv_dim*8, out_channels=1)
+        self.conv5 = conv(in_channels=conv_dim*8, out_channels=1, batch_norm=False)
 
 
     def forward(self, x):
@@ -85,8 +85,8 @@ class Discriminator(nn.Module):
         out = F.leaky_relu(self.conv2(out),0.2)
         out = F.leaky_relu(self.conv3(out),0.2)
         out = F.leaky_relu(self.conv4(out),0.2)
-        out = F.leaky_relu(self.conv5(out),0.2)
-        out = F.leaky_relu(self.conv6(out),0.2)
+        out = self.conv5(out)
+
 
         return out
 
